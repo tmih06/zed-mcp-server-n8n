@@ -1,6 +1,6 @@
 # n8n MCP Server for Zed
 
-This extension connects Zed's Assistant to n8n MCP endpoints.
+This extension connects Zed's Assistant to n8n MCP endpoints over HTTP.
 
 It supports:
 
@@ -8,18 +8,7 @@ It supports:
 - MCP Server Trigger workflow URLs
 - local `http://localhost` n8n
 - remote n8n with bearer auth
-- remote n8n with OAuth via `mcp-remote`
-
-## Why this extension exists
-
-Zed MCP extensions launch local commands over stdio.
-
-n8n's MCP endpoints use HTTP, SSE, or streamable HTTP instead of stdio. This extension bridges the gap in two ways:
-
-- token/header-based connections use [`supergateway`](https://github.com/supercorp-ai/supergateway)
-- OAuth-only connections use [`mcp-remote`](https://github.com/geelen/mcp-remote)
-
-This avoids unnecessary OAuth browser flows for local or token-authenticated n8n servers.
+- remote n8n with OAuth
 
 ## Install in Zed
 
@@ -27,28 +16,6 @@ This avoids unnecessary OAuth browser flows for local or token-authenticated n8n
 2. Run `zed: install dev extension`.
 3. Select this repository directory.
 4. Enable `n8n MCP Server` in your assistant tools/profile.
-
-## Publish to the Zed registry
-
-This repository is structured as a standalone Zed extension and can be submitted
-to the public registry through [`zed-industries/extensions`](https://github.com/zed-industries/extensions).
-
-Submission steps:
-
-1. Push this repository to a public GitHub repository.
-2. Fork and clone `https://github.com/zed-industries/extensions`.
-3. Add this repository as a submodule at `extensions/mcp-server-n8n`.
-4. Add an entry for `mcp-server-n8n` in the top-level `extensions.toml`.
-5. Run `pnpm sort-extensions`.
-6. Open a pull request to `zed-industries/extensions`.
-
-Notes:
-
-- The extension license is MIT and is included at the repository root.
-- The published extension version in the registry must match `version` in `extension.toml`.
-- The `repository` value in `extension.toml` must match the final public GitHub repository you submit.
-- If you change the extension ID, do it before first publication. Zed treats the ID as the permanent identifier.
-- Exact registry snippets are included in `PUBLISHING.md`.
 
 ## Settings
 
@@ -83,7 +50,7 @@ Add settings under `context_servers.mcp-server-n8n.settings`.
 }
 ```
 
-Leave `bearer_token` unset or empty. `mcp-remote` will open the browser and complete OAuth if your n8n instance advertises it.
+Leave `bearer_token` unset or empty. Zed will open the browser and complete OAuth if your n8n instance advertises it.
 
 ### Local self-hosted n8n
 
@@ -136,23 +103,11 @@ If your trigger uses Header auth instead of Bearer auth, replace the `Authorizat
 - `debug`: enable verbose `mcp-remote` logging
 - `silent`: suppress normal bridge logs
 
-## Runtime behavior
-
-- If `bearer_token` or `headers` are set, the extension uses `supergateway`.
-- If neither is set, the extension uses `mcp-remote` and expects OAuth or unauthenticated access.
-
-For local n8n with an access token, always set `bearer_token`. That avoids the repeated browser tabs and callback timeout behavior you can get from OAuth-oriented bridging.
-
-## Development
-
-```bash
-cargo build
-```
+For local n8n with an access token, always set `bearer_token`.
 
 ## References
 
 - Zed MCP docs: https://zed.dev/docs/ai/mcp
 - Zed MCP extension docs: https://zed.dev/docs/extensions/mcp-extensions
-- Zed extension development and publishing docs: https://zed.dev/docs/extensions/developing-extensions
 - n8n MCP docs: https://docs.n8n.io/advanced-ai/mcp/accessing-n8n-mcp-server/
 - n8n MCP Server Trigger docs: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-langchain.mcptrigger/

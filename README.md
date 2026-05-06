@@ -28,6 +28,28 @@ This avoids unnecessary OAuth browser flows for local or token-authenticated n8n
 3. Select this repository directory.
 4. Enable `n8n MCP Server` in your assistant tools/profile.
 
+## Publish to the Zed registry
+
+This repository is structured as a standalone Zed extension and can be submitted
+to the public registry through [`zed-industries/extensions`](https://github.com/zed-industries/extensions).
+
+Submission steps:
+
+1. Push this repository to a public GitHub repository.
+2. Fork and clone `https://github.com/zed-industries/extensions`.
+3. Add this repository as a submodule at `extensions/mcp-server-n8n`.
+4. Add an entry for `mcp-server-n8n` in the top-level `extensions.toml`.
+5. Run `pnpm sort-extensions`.
+6. Open a pull request to `zed-industries/extensions`.
+
+Notes:
+
+- The extension license is MIT and is included at the repository root.
+- The published extension version in the registry must match `version` in `extension.toml`.
+- The `repository` value in `extension.toml` must match the final public GitHub repository you submit.
+- If you change the extension ID, do it before first publication. Zed treats the ID as the permanent identifier.
+- Exact registry snippets are included in `PUBLISHING.md`.
+
 ## Settings
 
 Add settings under `context_servers.mcp-server-n8n.settings`.
@@ -131,5 +153,6 @@ cargo build
 
 - Zed MCP docs: https://zed.dev/docs/ai/mcp
 - Zed MCP extension docs: https://zed.dev/docs/extensions/mcp-extensions
+- Zed extension development and publishing docs: https://zed.dev/docs/extensions/developing-extensions
 - n8n MCP docs: https://docs.n8n.io/advanced-ai/mcp/accessing-n8n-mcp-server/
 - n8n MCP Server Trigger docs: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-langchain.mcptrigger/

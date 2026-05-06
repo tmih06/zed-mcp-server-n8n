@@ -1,0 +1,45 @@
+{
+  // Required. Use either an instance-level MCP URL or an MCP Server Trigger URL.
+  // Examples:
+  // "https://your-n8n.example.com/mcp-server/http"
+  // "http://localhost:5678/mcp/my-workflow"
+  "server_url": "https://your-n8n.example.com/mcp-server/http",
+
+  // Optional. Set this for local or token-authenticated n8n.
+  // Leave empty to let mcp-remote handle OAuth when the n8n endpoint supports it.
+  "bearer_token": "",
+
+  // Optional extra headers.
+  // Format: "Header-Name:value" or "Header-Name:${ENV_VAR}"
+  "headers": [],
+
+  // Allow plain HTTP for trusted local/private networks such as localhost.
+  "allow_http": false,
+
+  // OAuth mode only. mcp-remote transport strategy: http-first, http-only, sse-first, sse-only
+  "transport": "http-first",
+
+  // OAuth mode only. Optional OAuth callback host override.
+  // "host": "127.0.0.1",
+
+  // OAuth mode only. Optional OAuth callback port override.
+  // "callback_port": 3334,
+
+  // OAuth mode only. Optional OAuth timeout override in seconds.
+  // "auth_timeout_seconds": 30,
+
+  // OAuth mode only. Optional OAuth resource override for multi-tenant setups.
+  // "resource": "https://your-tenant.example.com/",
+
+  // OAuth mode only. Optional outbound proxy support via HTTP_PROXY / HTTPS_PROXY / NO_PROXY.
+  "enable_proxy": false,
+
+  // OAuth mode only. Optional list of tool names or wildcard patterns to ignore.
+  "ignore_tools": [],
+
+  // Emit verbose mcp-remote logs.
+  "debug": false,
+
+  // Suppress normal bridge logs in Zed unless debugging is needed.
+  "silent": true
+}

@@ -1,0 +1,10 @@
+id = "mcp-server-n8n"
+name = "n8n MCP Server"
+description = "Connect Zed to n8n MCP endpoints, locally or remotely"
+version = "0.1.0"
+schema_version = 1
+authors = ["tmih06"]
+repository = "https://github.com/tmih06/zed-mcp-server-n8n"
+
+[context_servers.mcp-server-n8n]
+name = "n8n MCP Server"
